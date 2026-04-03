@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MyLib/MyLib.fsproj" />
+    <Project Path="src/MyLib.Extension/MyLib.Extension.fsproj" />
+    <Project Path="src/MyLib.Cli/MyLib.Cli.fsproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MyLib.Tests/MyLib.Tests.fsproj" />
+  </Folder>
+  <Folder Name="/examples/">
+    <Project Path="examples/ExampleApp/ExampleApp.fsproj" />
+  </Folder>
+</Solution>
