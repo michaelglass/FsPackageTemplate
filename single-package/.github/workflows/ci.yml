@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   build:
-    uses: michaelglass/FSharpOssTooling/.github/workflows/reusable-build.yml@main
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/reusable-build.yml@main
     with:
       solution: MyLib.slnx
       fantomas-paths: "src/ tests/ examples/"
@@ -28,7 +28,7 @@ jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
-    uses: michaelglass/FSharpOssTooling/.github/workflows/reusable-release.yml@main
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/reusable-release.yml@main
     with:
       package-name: MyLib
       tag-prefix: v
@@ -40,7 +40,7 @@ jobs:
   deploy-docs:
     if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc')
     needs: build
-    uses: michaelglass/FSharpOssTooling/.github/workflows/reusable-docs.yml@main
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/reusable-docs.yml@main
     with:
       fsdocs-parameters: "--parameters root /MyLib/"
     permissions:
