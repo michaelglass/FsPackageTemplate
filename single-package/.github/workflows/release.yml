@@ -1,0 +1,19 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-release.yml@main
+    with:
+      package-name: MyLib
+      tag-prefix: v
+      fsproj-path: src/MyLib/MyLib.fsproj
+    permissions:
+      contents: write
+      id-token: write

@@ -1,0 +1,31 @@
+name: Release
+on:
+  push:
+    tags: ['core-v*', 'extension-v*']
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release-core:
+    if: startsWith(github.ref, 'refs/tags/core-v')
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-release.yml@main
+    with:
+      package-name: MyLib
+      tag-prefix: core-v
+      fsproj-path: src/MyLib/MyLib.fsproj
+    permissions:
+      contents: write
+      id-token: write
+
+  release-extension:
+    if: startsWith(github.ref, 'refs/tags/extension-v')
+    uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-release.yml@main
+    with:
+      package-name: MyLib.Extension
+      tag-prefix: extension-v
+      fsproj-path: src/MyLib.Extension/MyLib.Extension.fsproj
+    permissions:
+      contents: write
+      id-token: write
