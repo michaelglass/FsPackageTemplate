@@ -17,7 +17,6 @@ jobs:
       fsproj-path: src/MyLib/MyLib.fsproj
     permissions:
       contents: write
-      id-token: write
 
   release-extension:
     if: startsWith(github.ref, 'refs/tags/extension-v')
@@ -28,4 +27,54 @@ jobs:
       fsproj-path: src/MyLib.Extension/MyLib.Extension.fsproj
     permissions:
       contents: write
+
+  # NuGet Trusted Publishing requires nuget/login to run in THIS repo's workflow,
+  # not in a reusable workflow from another repo: the OIDC token's
+  # job_workflow_ref must match the calling repo's own workflow file. So the
+  # credential exchange and the push live here while the pack/tag/release work
+  # stays in the shared workflow above. One publish job per package, because each
+  # tag prefix triggers exactly one release job and a skipped `needs` skips its
+  # dependants.
+  #
+  # Set the `NUGET_USER` repository variable to your nuget.org username and
+  # register this repo as a trusted publisher for each package on nuget.org.
+  publish-core:
+    needs: release-core
+    if: startsWith(github.ref, 'refs/tags/core-v')
+    runs-on: ubuntu-latest
+    permissions:
       id-token: write
+    steps:
+      # Pinned by commit hash rather than by tag. This job mints a publishing
+      # credential, so a mutable tag on a third-party action is a supply-chain
+      # path straight to the NuGet API key.
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nuget-packages
+          path: ./artifacts
+      - name: Login to NuGet (Trusted Publishing)
+        id: nuget-login
+        uses: nuget/login@v1
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Publish to NuGet
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  publish-extension:
+    needs: release-extension
+    if: startsWith(github.ref, 'refs/tags/extension-v')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nuget-packages
+          path: ./artifacts
+      - name: Login to NuGet (Trusted Publishing)
+        id: nuget-login
+        uses: nuget/login@v1
+        with:
+          user: ${{ vars.NUGET_USER }}
+      - name: Publish to NuGet
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

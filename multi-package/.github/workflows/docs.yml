@@ -4,7 +4,11 @@ on:
     tags: ['core-v*', 'extension-v*']
 
 concurrency:
-  group: docs-${{ github.sha }}
+  # A constant group, NOT one keyed on the commit/tag: the point is to serialise
+  # GitHub Pages deployments against each other, and every push has a distinct
+  # sha, so a sha-scoped group can never collide with anything and serialises
+  # nothing. With one group, a newer tag's docs supersede an in-flight build.
+  group: docs
   cancel-in-progress: true
 
 permissions:
@@ -14,7 +18,10 @@ permissions:
 
 jobs:
   docs:
-    if: "!contains(github.ref, 'alpha') && !contains(github.ref, 'beta') && !contains(github.ref, 'rc')"
+    # Prereleases do not publish docs. The leading hyphen matters: it anchors the
+    # match to the SemVer prerelease separator, so `v1.0.0-alpha.1` is skipped
+    # while a release of a package whose own name contains "rc" or "beta" is not.
+    if: "!contains(github.ref, '-alpha') && !contains(github.ref, '-beta') && !contains(github.ref, '-rc')"
     uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-docs.yml@main
     with:
       fsdocs-parameters: "--parameters root /MyLib/"

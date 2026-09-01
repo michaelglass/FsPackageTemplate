@@ -6,6 +6,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/MyLib.Tests/MyLib.Tests.fsproj" />
+    <Project Path="tests/MyLib.Extension.Tests/MyLib.Extension.Tests.fsproj" />
   </Folder>
   <Folder Name="/examples/">
     <Project Path="examples/ExampleApp/ExampleApp.fsproj" />

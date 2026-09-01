@@ -4,7 +4,7 @@
       "name": "MyLib",
       "fsproj": "src/MyLib/MyLib.fsproj",
       "tagPrefix": "core-v",
-      "extraFsprojs": ["src/MyLib.Cli/MyLib.Cli.fsproj"]
+      "fsProjsSharingSameTag": ["src/MyLib.Cli/MyLib.Cli.fsproj"]
     },
     {
       "name": "MyLib.Extension",

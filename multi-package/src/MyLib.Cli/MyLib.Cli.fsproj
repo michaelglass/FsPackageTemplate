@@ -7,6 +7,10 @@
     <WarnOn>3390;1104;0020;0044;0025;3391;0067;0021;1182</WarnOn>
     <NoWarn>$(NoWarn);NU1605;MSB3277;NETSDK1188</NoWarn>
     <IsPackable>false</IsPackable>
+    <!-- Not published, but versioned: semantic-tagger.json lists this project in
+         MyLib's `fsProjsSharingSameTag`, so the CLI assembly version tracks the
+         core package's tag. -->
+    <Version>0.1.0-alpha.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../MyLib/MyLib.fsproj" />
