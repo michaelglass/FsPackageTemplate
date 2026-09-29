@@ -25,7 +25,7 @@
     <!-- SourceLink stamps the published package with the commit it was built from, so a
          consumer can step into this source. The non-colocated-jj guard that keeps a local
          build working without a `.git` directory lives in the root Directory.Build.props. -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.301" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
