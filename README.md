@@ -64,12 +64,12 @@ the coverage ratchet for every `coverage-ratchet-*.json` at the root against
 ## What's Included
 
 - **Build**: `dotnet build` via the solution file, `--warnaserror` in CI and in
-  `mise run ci`. SDK pinned in `mise.toml`.
+  `mise run ci`. SDK pinned in `mise.toml`, `global.json` and `ci.yml`.
 - **Test**: xUnit v3 with Microsoft Testing Platform v2, Unquote assertions.
 - **Coverage**: per-file floors via CoverageRatchet, emitted and checked locally
   by `mise run coverage-check` and enforced in CI. A file with no entry defaults
   to 100% line and 100% branch.
-- **Format**: Fantomas 7.x.
+- **Format**: Fantomas 8.x.
 - **Lint**: FSharpLint (source) and FsProjLint (repo + fsproj structure) — the
   latter both as `mise run lint-project` and as its own CI job, because a gate
   that lives only in the task runner is not on the path CI executes.

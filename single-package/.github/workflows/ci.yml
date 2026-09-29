@@ -14,6 +14,9 @@ jobs:
   build:
     uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-build.yml@main
     with:
+      # Keep in step with global.json's `sdk.version`: branch coverage counts
+      # differ per SDK band, so re-measure the coverage floors when moving it.
+      dotnet-version: '10.0.4xx'
       solution: MyLib.slnx
       fantomas-paths: "src/ tests/ examples/"
       # The "Build examples" step is controlled by `example-projects`, which is
@@ -32,5 +35,8 @@ jobs:
   # repos shipped four failing fsprojlint checks unnoticed.
   lint-project:
     uses: michaelglass/MichaelsWackyFsPackageTools/.github/workflows/michaels-wacky-lint-project.yml@main
+    with:
+      # Keep in step with global.json (see the build job).
+      dotnet-version: '10.0.4xx'
     permissions:
       contents: read
