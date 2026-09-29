@@ -1,8 +1,8 @@
 [tools]
 # Pin the SDK. Unpinned, a local run compiles with whatever dotnet happens to be
-# on PATH while CI uses the reusable build workflow's `dotnet-version` default
-# (10.0.x) — the two must not drift.
-dotnet = "10"
+# on PATH while CI installs the band ci.yml passes as `dotnet-version` (10.0.4xx).
+# Keep this, global.json's `sdk.version` and ci.yml in step — they must not drift.
+dotnet = "10.0.400"
 
 [tasks.tool-restore]
 description = "Restore the local dotnet tools"

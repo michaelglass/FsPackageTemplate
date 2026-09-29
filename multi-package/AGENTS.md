@@ -40,8 +40,10 @@ CI.
 
 ## Task runner
 
-`mise.toml`. The SDK is pinned there (`dotnet = "10"`) so a local run and CI
-compile with the same compiler.
+`mise.toml`. The SDK is pinned there (`dotnet = "10.0.400"`), in `global.json`,
+and in `ci.yml`'s `dotnet-version` (`10.0.4xx`) so a local run and CI compile
+with the same compiler. Move all three together, and re-measure the coverage
+floors when you do: branch coverage counts differ per SDK band.
 
 ```
 mise run build            mise run test              mise run test-coverage

@@ -15,6 +15,6 @@
     <!-- RefStamp: a LOCAL `dotnet pack` derives its version from the jj/git source
          ref, so a dev machine cannot produce a release-shaped version. One line
          here covers every project in the repo. -->
-    <PackageReference Include="RefStamp" Version="0.1.0-alpha.2" PrivateAssets="all" />
+    <PackageReference Include="RefStamp" Version="0.1.0-alpha.3" PrivateAssets="all" />
   </ItemGroup>
 </Project>
